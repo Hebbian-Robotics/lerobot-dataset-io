@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  quality:
+    name: Rust quality gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install mold
+        run: sudo apt-get install --yes mold
+
+      - name: Install stable Rust
+        run: rustup toolchain install stable --profile minimal --component clippy,rustfmt
+
+      - name: Check formatting
+        run: cargo +stable fmt --check
+
+      - name: Lint all targets and features
+        run: cargo +stable clippy --all-targets --all-features -- -D warnings
+
+      - name: Test all features
+        run: cargo +stable test --all-features
+
+      - name: Check documentation
+        env:
+          RUSTDOCFLAGS: -D warnings
+        run: cargo +stable doc --no-deps --all-features
+
+  minimum-supported-rust:
+    name: Rust 1.88 compatibility
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Install mold
+        run: sudo apt-get install --yes mold
+
+      - name: Install Rust 1.88
+        run: rustup toolchain install 1.88.0 --profile minimal
+
+      - name: Check minimum supported Rust version
+        run: cargo +1.88.0 check --all-targets --all-features
