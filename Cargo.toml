@@ -11,8 +11,6 @@ keywords = ["lerobot", "robotics", "dataset", "parquet"]
 categories = ["science::robotics", "filesystem"]
 rust-version = "1.88"
 include = ["/src/**", "/tests/**", "/Cargo.toml", "/README.md", "/LICENSE"]
-# Prevent accidental crates.io publication while the first release is prepared.
-publish = false
 
 [package.metadata.docs.rs]
 all-features = true
