@@ -10,11 +10,42 @@ readme = "README.md"
 keywords = ["lerobot", "robotics", "dataset", "parquet"]
 categories = ["science::robotics", "filesystem"]
 rust-version = "1.88"
-# The repository exists before the implementation is migrated. This prevents
-# accidentally publishing the placeholder package.
+include = ["/src/**", "/tests/**", "/Cargo.toml", "/README.md", "/LICENSE"]
+# Prevent accidental crates.io publication while the first release is prepared.
 publish = false
 
+[package.metadata.docs.rs]
+all-features = true
+
+[features]
+default = ["object-store"]
+object-store = ["dep:object_store", "object_store/fs", "dep:url"]
+aws = ["object-store", "object_store/aws"]
+gcp = ["object-store", "object_store/gcp"]
+azure = ["object-store", "object_store/azure"]
+http = ["object-store", "object_store/http"]
+
 [dependencies]
+async-trait = "0.1.91"
+arrow-array = "58.4.0"
+arrow-schema = "58.4.0"
+futures = "0.3.33"
+nonempty = "0.12.0"
+object_store = { version = "0.13.2", default-features = false, optional = true }
+parquet = { version = "58.4.0", features = ["arrow"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tempfile = "3.27.0"
+thiserror = "2.0.19"
+tokio = { version = "1.53.1", features = [
+    "fs",
+    "io-util",
+    "macros",
+    "rt-multi-thread",
+    "time",
+] }
+tracing = "0.1.44"
+url = { version = "2.5.8", optional = true }
 
 [lints.rust]
 missing_docs = "warn"

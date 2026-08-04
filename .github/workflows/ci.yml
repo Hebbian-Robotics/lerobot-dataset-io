@@ -34,10 +34,16 @@ jobs:
       - name: Test all features
         run: cargo +stable test --all-features
 
+      - name: Test provider-neutral core
+        run: cargo +stable test --no-default-features
+
       - name: Check documentation
         env:
           RUSTDOCFLAGS: -D warnings
         run: cargo +stable doc --no-deps --all-features
+
+      - name: Verify package contents
+        run: cargo +stable package --locked
 
   minimum-supported-rust:
     name: Rust 1.88 compatibility
