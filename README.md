@@ -1,5 +1,9 @@
 # lerobot-dataset-io
 
+[![crates.io](https://img.shields.io/crates/v/lerobot-dataset-io.svg)](https://crates.io/crates/lerobot-dataset-io)
+[![docs.rs](https://docs.rs/lerobot-dataset-io/badge.svg)](https://docs.rs/lerobot-dataset-io)
+[![CI](https://github.com/Hebbian-Robotics/lerobot-dataset-io/actions/workflows/ci.yml/badge.svg)](https://github.com/Hebbian-Robotics/lerobot-dataset-io/actions/workflows/ci.yml)
+
 Rust I/O for inspecting, accessing, and creating subsets of packed `LeRobot`
 datasets.
 
@@ -10,6 +14,15 @@ and writes reindexed subset datasets.
 
 For an example of a public robotics-data application where this crate can be
 used, see [Pareto](https://github.com/Hebbian-Robotics/pareto).
+
+## Installation
+
+```bash
+cargo add lerobot-dataset-io
+```
+
+API documentation is available on
+[docs.rs](https://docs.rs/lerobot-dataset-io).
 
 ## What it provides
 
